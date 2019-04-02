@@ -45,6 +45,10 @@ public class ArraySorting{
 	}
 	
 	private static int[] sortArray(int[] rndNumbers) {
-		
+		for(int i = 0; i < rndNumbers.length()-1; i++) {
+			for(int j = i+1; j = ) {
+				
+			}
+		}
 	}
 }
