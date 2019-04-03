@@ -12,6 +12,25 @@ public class ArraySorting{
 	static String how;
 	
 	public static void main(String[] args) {
+		
+		/*
+		// Kiire vahetus (swap)!
+		int a = 10;
+		int b = 5;
+		System.out.println("Before!");
+		System.out.println("a=" + a);
+		System.out.println("b=" + b);
+		
+		a ^= b;
+		b ^= a;
+		a ^= b;
+		
+		System.out.println("Swap!");		
+		System.out.println("a=" + a);
+		System.out.println("b=" + b);
+		
+		if (true) return;
+		*/
 		if(args.length == 4) {
 			if(isInteger(args[0]) && isInteger(args[1]) && isInteger(args[2])) {
 				min = Integer.parseInt(args[0]);
