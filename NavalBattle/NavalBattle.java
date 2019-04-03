@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class NavalBattle {
+public class NavalBattle implements Runnable {
 	
 	private int boardSize = 4;
 	private int shipsCount = (int) ((boardSize * boardSize) / 2);
@@ -10,20 +10,42 @@ public class NavalBattle {
 	private int[][] gameBoard;	// PC known
 	private char[] topLine = new char[]{'A','B','C','D','E','F','G','H','I','J'};
 	private int points = 0;
-	
+	private long c = 0;
+	private boolean wait = true;
+	private long start = System.currentTimeMillis();
+		
 	public static void main(String[] args) {
 		if(args.length == 2) { // Board size and ships count
 			NavalBattle app = new NavalBattle(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+			Thread thread = new Thread(app);
+			thread.start();
 		} else if(args.length == 1) { // Board size but ships half board size
 			if(Integer.parseInt(args[0]) > 10) {
 				System.out.println("Max size 10 x 10. Use default value!\n");
 				NavalBattle app = new NavalBattle(4, 8);
+				Thread thread = new Thread(app);
+				thread.start();
 			} else {
 				NavalBattle app = new NavalBattle(Integer.parseInt(args[0]), (int)((Integer.parseInt(args[0])*Integer.parseInt(args[0]))/2));
+				Thread thread = new Thread(app);
+				thread.start();
 			}
 		} else { // Default 4x4 and 8 ships
 			NavalBattle app = new NavalBattle(4, 8);
-		}	
+			Thread thread = new Thread(app);
+			thread.start();
+		}		
+	}
+	
+	@Override
+	public void run() {
+		try {
+			System.out.println("Starting " + getTime());
+			playGame();
+			Thread.sleep(1000);
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
+		}		
 	}
 	
 	public NavalBattle(int boardSize, int shipsCount) {		
@@ -34,12 +56,11 @@ public class NavalBattle {
 		}			
 		genBoard();
 		showBoard(userBoard); // Test
-		showBoard(gameBoard); // Test
-		playGame();
+		//showBoard(gameBoard); // Test
+		//playGame();
 	}
 	
 	private void playGame() {
-		boolean wait = true;
 		Scanner scanner = new Scanner(System.in);
 		while(wait) {
 			System.out.print("Your move (like B2) > ");
@@ -48,12 +69,13 @@ public class NavalBattle {
 				System.out.println("Bye, bye");
 				System.exit(0);
 			} else {
+				
 				if(userInput.length() == 2) {// get user input
 					char ch = Character.toUpperCase(userInput.charAt(0));
 					int nr = Integer.parseInt(userInput.substring(1, 2));
 					wait = shooting(ch, nr);
 					showBoard(userBoard); // Test
-					showBoard(gameBoard); // Test
+					//showBoard(gameBoard); // Test
 					
 				} else {
 					System.out.println("Try again!");	
@@ -61,12 +83,12 @@ public class NavalBattle {
 			}
 		}
 		System.out.println("Game over! Total points: " + points);
+		System.out.println("Stopping... " + getTime());
 	}
 	
 	private boolean shooting(char ch, int nr) {
 		boolean charExists = false;
-		boolean lineNrExists = false;
-		
+		boolean lineNrExists = false;		
 		int colNr = 0;
 		
 		for(int i = 0; i < topLine.length; i++) {
@@ -86,15 +108,18 @@ public class NavalBattle {
 				userBoard[nr][colNr] = 1;
 				points++;
 				System.out.println("Hit! Points: " + points);
+				System.out.println("Time " + getTime());
 				boolean ok = compareArrays(userBoard, gameBoard);
 				if(ok) {					
 					return false; // Game Over
 				} 
 			} else {
 				System.out.println("Missed! Points: " + points);
+				System.out.println("Time " + getTime());
 			}
 		} else {
 			System.out.println("Shooting over sea :)");
+			System.out.println("Time " + getTime());
 		}
 		return true;		
 	}
@@ -110,6 +135,30 @@ public class NavalBattle {
 			}	
 		}
 		return different;
+	}
+	
+	/**
+	 * https://stackoverflow.com/questions/3491027/java-console-code-for-stopwatch-timer
+	 * 
+	*/
+	private String getTime() {
+		long elapsedTime = System.currentTimeMillis() - start;
+		elapsedTime = elapsedTime / 1000;
+
+		String seconds = Integer.toString((int) (elapsedTime % 60));
+		String minutes = Integer.toString((int) ((elapsedTime % 3600) / 60));
+		String hours = Integer.toString((int) (elapsedTime / 3600));
+
+		if (seconds.length() < 2)
+			seconds = "0" + seconds;
+
+		if (minutes.length() < 2)
+			minutes = "0" + minutes;
+
+		if (hours.length() < 2)
+			hours = "0" + hours;
+
+		return minutes + ":" + seconds;
 	}
 	
 	private void genBoard() {		
