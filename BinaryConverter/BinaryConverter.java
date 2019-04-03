@@ -12,7 +12,8 @@ public class BinaryConverter {
 				}
 				decimal = decimal / 2;
 			}			
-			System.out.println(args[0] + " => " + niceFormat(result));
+			//System.out.println(args[0] + " => " + niceFormat(result));
+			System.out.println(args[0] + " => " + result);
 		} else {
 			System.out.println("Sorry, not Integer");
 		}
