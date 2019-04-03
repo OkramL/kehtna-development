@@ -9,6 +9,7 @@ public class NavalBattle {
 	private int[][] userBoard;	// User see
 	private int[][] gameBoard;	// PC known
 	private char[] topLine = new char[]{'A','B','C','D','E','F','G','H','I','J'};
+	private int points = 0;
 	
 	public static void main(String[] args) {
 		if(args.length == 2) { // Board size and ships count
@@ -59,7 +60,7 @@ public class NavalBattle {
 				}
 			}
 		}
-		System.out.println("Game over!");
+		System.out.println("Game over! Total points: " + points);
 	}
 	
 	private boolean shooting(char ch, int nr) {
@@ -81,16 +82,16 @@ public class NavalBattle {
 		}
 		
 		if(charExists && lineNrExists) {
-			if(gameBoard[nr][colNr] == 1 && userBoard[nr][colNr] != 1) {
-				System.out.println("Hit");
+			if(gameBoard[nr][colNr] == 1 && userBoard[nr][colNr] != 1) {				
 				userBoard[nr][colNr] = 1;
+				points++;
+				System.out.println("Hit! Points: " + points);
 				boolean ok = compareArrays(userBoard, gameBoard);
-				if(ok) {
-					//System.out.println("OK"); // Game over
-					return false;
+				if(ok) {					
+					return false; // Game Over
 				} 
 			} else {
-				System.out.println("Missed");
+				System.out.println("Missed! Points: " + points);
 			}
 		} else {
 			System.out.println("Shooting over sea :)");
