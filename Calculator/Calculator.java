@@ -1,10 +1,10 @@
 public class Calculator {
 	public static void main(String[] args) {
-		int a, b;		
+				
 		if(args.length == 3) {
 			if(isInt(args[0]) && isInt(args[2])) {
-				a = Integer.parseInt(args[0]);
-				b = Integer.parseInt(args[2]);
+				int a = Integer.parseInt(args[0]);
+				int b = Integer.parseInt(args[2]);
 				switch(args[1]) {
 					case "+":
 						System.out.println(sum(a, b));
@@ -15,8 +15,7 @@ public class Calculator {
 					case "/":
 						System.out.println(divide(a, b));
 						break;
-					case "x":
-					case "\\*":
+					case "x":					
 						System.out.println(multiply(a, b));
 						break;				
 					default:

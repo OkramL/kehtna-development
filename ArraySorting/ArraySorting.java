@@ -56,7 +56,7 @@ public class ArraySorting{
 	
 	/**
 	* https://www.tutorialspoint.com/java-program-to-implement-bubble-sort
-	*
+	* Bubble sort both side ASC and DESC
 	*/
 	private static int[] bubbleSort(int[] arr, String howSort) {
 		int n = arr.length;

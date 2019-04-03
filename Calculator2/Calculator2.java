@@ -11,22 +11,22 @@ public class Calculator2 {
 			System.out.print(myTexts[i]);
 			data[i] = scan.next();
 		}
-		System.out.println(data[0]);
+		
 		if(isInt(data[0]) && isInt(data[2])) {
-			a = Integer.parseInt(data[0]);
-			b = Integer.parseInt(data[2]);
+			int a = Integer.parseInt(data[0]);
+			int b = Integer.parseInt(data[2]);
 			switch(data[1]) {
 				case "+":
-					System.out.println(sum(a, b));
+					System.out.println("Result: " + sum(a, b));
 					break;
 				case "-":
-					System.out.println(substract(a, b));
+					System.out.println("Result: " + substract(a, b));
 					break;
 				case "/":
-					System.out.println(divide(a, b));
+					System.out.println("Result: " + divide(a, b));
 					break;
 				case "x":				
-					System.out.println(multiply(a, b));
+					System.out.println("Result: " + multiply(a, b));
 					break;				
 				default:
 					System.out.println("Wrong operator!");
