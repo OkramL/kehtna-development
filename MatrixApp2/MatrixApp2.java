@@ -1,7 +1,9 @@
 import java.util.Random;
 
 public class MatrixApp2 {
-	
+	/**
+	 * Done
+	*/
 	public static void main(String[] args) {
 		int rows = 3;
 		int cols = 2;
