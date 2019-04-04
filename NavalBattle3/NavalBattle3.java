@@ -1,7 +1,10 @@
 
+import java.io.IOException;
+import 
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+
 
 /**
  *
@@ -124,11 +127,13 @@ public class NavalBattle3 implements Runnable {
     private void playGame() {
         Scanner scanner = new Scanner(System.in);
         while (wait) {
+			CLS();
             showInfo();
             showBoard(userBoard);
             System.out.print("Your move (like B2) > ");
             String userInput = scanner.next();
             if (userInput.equalsIgnoreCase("exit")) {
+				System.out.println("Stopping... Playing time: " + getTime());
                 System.out.println("Bye, bye");
                 System.exit(0);
             } else if(userInput.equalsIgnoreCase("backdoor")) { 
@@ -241,6 +246,9 @@ public class NavalBattle3 implements Runnable {
         nb3.playGame();
     }
 
+	private void CLS() {
+		new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();		
+	}
     @Override
     public void run() {
         try {
